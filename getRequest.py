@@ -373,9 +373,37 @@ def get_document_list(session, page=1):
 
 
 if __name__ == "__main__":
-    # 替换为您的学号和密码
-    USERNAME = "2024110127"
-    PASSWORD = "lx055357"
+    import sys
+    
+    USERNAME = ""
+    PASSWORD = ""
+
+    # 优先从命令行参数获取
+    if len(sys.argv) >= 3:
+        USERNAME = sys.argv[1]
+        PASSWORD = sys.argv[2]
+        print(f"已从命令行参数获取账号: {USERNAME}")
+    else:
+        # 尝试从文件读取账号密码
+        try:
+            config_file = "userpsw"
+            if not os.path.exists(config_file):
+                config_file = "userpsw.txt"
+                
+            if os.path.exists(config_file):
+                with open(config_file, "r", encoding="utf-8") as f:
+                    lines = f.read().strip().splitlines()
+                    if len(lines) >= 2:
+                        USERNAME = lines[0].strip()
+                        PASSWORD = lines[1].strip()
+                        print(f"已从 {config_file} 读取账号: {USERNAME}")
+        except Exception as e:
+            print(f"读取配置文件出错: {str(e)}")
+
+    if not USERNAME or not PASSWORD:
+        print(f"用法: python {os.path.basename(__file__)} <学号> <密码>")
+        print("或者确保当前目录下存在 userpsw 或 userpsw.txt 配置文件")
+        exit(1)
 
     # 使用Selenium登录
     session, final_url = szu_login_selenium(USERNAME, PASSWORD)

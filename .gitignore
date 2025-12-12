@@ -6,3 +6,5 @@ __pycache__/
 .env.*
 .idea/
 *.iml
+/userpsw.txt
+/gongwen.txt
