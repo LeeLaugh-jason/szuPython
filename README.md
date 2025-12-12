@@ -22,4 +22,6 @@ pip install -r requirements.txt
 ```
 python getRequest.py <账号> <密码>
 ```
-    运行后，程序会自动爬取公文通信息，并将信息存储到gongwen.txt文件中。
+
+运行后，程序会自动爬取公文通信息，并将信息存储到gongwen.txt文件中。
+
